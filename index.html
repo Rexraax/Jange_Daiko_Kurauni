@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#702d18">
+  <meta name="description" content="Slow-cooked, traditional Nepali kurauni made with pure buffalo milk. Fresh batches delivered across Kathmandu Valley.">
+  <title>Jange Daiko Kurauni | A taste of home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            caramel: '#8B4513', bark: '#78350F', butter: '#FEF3C7',
+            paper: '#FFFBEB', maroon: '#991B1B', antique: '#D97706'
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'Noto Sans Devanagari', 'sans-serif'],
+            display: ['Rozha One', 'Noto Sans Devanagari', 'serif'],
+            nepali: ['Noto Sans Devanagari', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --caramel: #8b4513; --bark: #78350f; --cream: #fffbeb;
+      --butter: #fef3c7; --maroon: #991b1b; --gold: #d97706;
+      --ink: #332116; --muted: #78695d; --line: rgba(120,53,15,.16);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; color: var(--ink);
+      background: var(--cream) radial-gradient(rgba(139,69,19,.04) .65px, transparent .65px) 0 0 / 7px 7px;
+      font-family: 'DM Sans', 'Noto Sans Devanagari', sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    select:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--gold); outline-offset: 3px;
+    }
+    .display { font-family: 'Rozha One', 'Noto Sans Devanagari', serif; }
+    .nepali  { font-family: 'Noto Sans Devanagari', sans-serif; }
+
+    /* ── Announcement ticker ── */
+    .announcement { min-height: 38px; overflow: hidden; }
+    .ticker-text { display: inline-block; white-space: nowrap; animation: ticker 24s linear infinite; }
+    @media (min-width: 640px) { .ticker-text { animation: none; white-space: normal; } }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    /* ── Photos ── */
+    .hero-photo {
+      background-image: linear-gradient(180deg, rgba(38,20,11,.02) 35%, rgba(38,20,11,.40) 100%), url('kurauni-story.jpg');
+      background-position: center 48%;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .heritage-photo {
+      background-image: linear-gradient(160deg, rgba(38,20,11,.04), rgba(38,20,11,.18)), url('kurauni-story.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /* ── Hero animations ── */
+    .hero-enter       { animation: enter .7s ease-out both; }
+    .hero-enter-delay { animation: enter .8s .12s ease-out both; }
+    @keyframes enter { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+    /* ── Shimmer CTA ── */
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: ''; position: absolute; inset: 0; left: -80%; width: 55%;
+      background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer { to { left: 130%; } }
+
+    /* ── Product cards ── */
+    .product-card { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .product-card:hover { transform: translateY(-5px); border-color: rgba(139,69,19,.45); box-shadow: 0 18px 40px rgba(75,39,18,.11); }
+    .card-accent { height: 4px; border-radius: 2px 2px 0 0; margin: -20px -20px 18px; }
+    @media (min-width: 640px) { .card-accent { margin: -24px -24px 20px; } }
+
+    /* ── Scroll-reveal ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Active nav link (scroll spy) ── */
+    nav a.active { color: var(--maroon); font-weight: 600; }
+    nav a.active::after { content: ''; display: block; height: 2px; background: var(--maroon); border-radius: 1px; margin-top: 1px; }
+
+    /* ── Review cards ── */
+    .review-card { background: white; border-radius: 4px; padding: 18px; box-shadow: 0 2px 12px rgba(75,39,18,.06); transition: box-shadow .2s ease; }
+    .review-card:hover { box-shadow: 0 6px 24px rgba(75,39,18,.10); }
+    .review-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--butter); border: 2px solid rgba(120,53,15,.18);
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 700; color: var(--bark); flex-shrink: 0;
+    }
+
+    /* ── Step icons ── */
+    .step-icon {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--butter); border: 1.5px solid rgba(120,53,15,.18);
+      display: grid; place-items: center; font-size: 1.5rem;
+      margin-bottom: 14px; box-shadow: 0 2px 10px rgba(120,53,15,.08);
+    }
+
+    /* ── Process connector line (desktop) ── */
+    @media (min-width: 640px) {
+      .process-grid { position: relative; }
+      .process-grid::before {
+        content: ''; position: absolute;
+        top: 27px; left: calc(33.33% - 27px); right: calc(33.33% - 27px);
+        height: 1px; background: var(--line); z-index: 0;
+      }
+      .step-icon { position: relative; z-index: 1; }
+    }
+
+    /* ── Dialog ── */
+    dialog { color: var(--ink); }
+    dialog::backdrop { background: rgba(34,20,12,.65); backdrop-filter: blur(4px); }
+
+    /* ── Form ── */
+    .qty-button {
+      width: 38px; height: 38px; display: grid; place-items: center;
+      border: 1px solid var(--line); border-radius: 50%; color: var(--bark);
+      background: #fffdf7; font-size: 20px; line-height: 1;
+      transition: border-color .15s, background .15s;
+    }
+    .qty-button:hover { border-color: var(--caramel); background: var(--butter); }
+    .field {
+      min-height: 46px; width: 100%;
+      border: 1px solid rgba(120,53,15,.22); border-radius: 4px;
+      background: #fffdf8; padding: 10px 12px; color: var(--ink);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field:focus { border-color: var(--caramel); box-shadow: 0 0 0 3px rgba(139,69,19,.10); outline: none; }
+    .field::placeholder { color: #9b8c7e; }
+
+    /* ── WhatsApp float ── */
+    .wa-float {
+      position: fixed; z-index: 30; right: 18px; bottom: 20px;
+      transition: bottom .18s ease, transform .18s ease, box-shadow .18s ease;
+    }
+    .wa-float:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(35,115,72,.40); }
+    .wa-float.cart-raised { bottom: 92px; }
+
+    /* ── Mobile cart ── */
+    #mobile-cart { display: none; }
+    #mobile-cart.visible { display: flex; }
+
+    @media (max-width: 767px) {
+      html { scroll-padding-top: 74px; }
+      .hero-photo { background-position: center 45%; }
+      .wa-float { right: 14px; bottom: 18px; }
+      .wa-float.cart-raised { bottom: 88px; }
+      dialog { max-height: calc(100dvh - 24px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Announcement ticker -->
+  <div class="announcement bg-maroon px-4 py-2 text-center text-xs font-semibold tracking-wide text-white sm:text-sm">
+    <span class="sm:hidden" aria-hidden="true">
+      <span class="ticker-text">🚚 Fresh batch ready! Same-day &amp; next-day delivery across Kathmandu Valley &nbsp;|&nbsp; COD &amp; Fonepay available &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🚚 Fresh batch ready! Same-day &amp; next-day delivery across Kathmandu Valley &nbsp;|&nbsp; COD &amp; Fonepay available &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </span>
+    <span class="hidden sm:inline">🚚 Fresh batch ready! Same-day &amp; next-day delivery across Kathmandu Valley &nbsp;|&nbsp; Cash on Delivery &amp; Fonepay available</span>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-20 border-b border-amber-900/10 bg-paper/96 backdrop-blur-md">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <a href="#home" class="flex min-w-0 items-center gap-2.5" aria-label="Jange Daiko Kurauni home">
+        <img src="logo.png" alt="" aria-hidden="true" class="size-11 shrink-0 object-contain sm:size-12">
+        <span class="min-w-0 leading-tight">
+          <span class="block truncate text-sm font-bold text-bark sm:text-base">Jange Daiko Kurauni</span>
+          <span class="nepali block truncate text-[11px] text-stone-600">जंगे दाईको कुरौनी</span>
+        </span>
+      </a>
+      <nav id="main-nav" class="hidden items-center gap-7 text-sm font-medium text-stone-600 md:flex" aria-label="Main navigation">
+        <a class="nav-link py-0.5 transition-colors hover:text-maroon" href="#story">Our story</a>
+        <a class="nav-link py-0.5 transition-colors hover:text-maroon" href="#menu">Menu</a>
+        <a class="nav-link py-0.5 transition-colors hover:text-maroon" href="#reviews">Reviews</a>
+        <a class="nav-link py-0.5 transition-colors hover:text-maroon" href="#faq">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-open-checkout class="hidden rounded-full bg-maroon px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-bark sm:inline-flex">Order on WhatsApp</button>
+        <button type="button" data-open-checkout class="relative grid size-10 place-items-center rounded-full border border-amber-900/15 text-bark transition-colors hover:bg-butter" aria-label="Open your order">
+          <span aria-hidden="true" class="text-lg">▤</span>
+          <span id="cart-count" class="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-maroon text-[10px] font-bold text-white" aria-live="polite">0</span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile subnav -->
+    <nav class="flex gap-6 overflow-x-auto border-t border-amber-900/10 px-4 py-2 text-xs font-medium text-stone-600 md:hidden" aria-label="Mobile navigation">
+      <a class="shrink-0 transition-colors hover:text-maroon" href="#story">Story</a>
+      <a class="shrink-0 transition-colors hover:text-maroon" href="#menu">Menu</a>
+      <a class="shrink-0 transition-colors hover:text-maroon" href="#reviews">Reviews</a>
+      <a class="shrink-0 transition-colors hover:text-maroon" href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ══ HERO ══ -->
+    <section id="home" class="relative overflow-hidden bg-[#702d18] text-amber-50">
+      <!-- Decorative rings -->
+      <div aria-hidden="true" class="pointer-events-none absolute -right-24 -top-28 size-[440px] rounded-full border border-amber-200/10"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -right-8 -top-12 size-[290px] rounded-full border border-amber-200/6"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -left-36 bottom-0 size-[360px] rounded-full border border-amber-200/6"></div>
+
+      <div class="relative mx-auto grid max-w-7xl items-stretch px-4 pb-10 pt-7 sm:px-6 sm:pb-14 sm:pt-10 lg:grid-cols-[.93fr_1.07fr] lg:px-8 lg:pb-20 lg:pt-12">
+
+        <!-- Left: text -->
+        <div class="flex flex-col justify-center py-4 lg:py-10 lg:pr-12">
+          <p class="hero-enter mb-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-amber-200 sm:text-xs">
+            <span class="h-px w-7 bg-antique"></span> Small-batch, slow-cooked in Kathmandu
+          </p>
+          <h1 class="hero-enter nepali max-w-2xl text-[2.1rem] font-bold leading-[1.35] text-white sm:text-5xl sm:leading-[1.28] lg:text-[3.2rem]">
+            काठमाडौँमै पाउनुहोस् गाउँको जस्तै शुद्ध र परम्परागत कुरौनी
+          </h1>
+          <p class="hero-enter-delay mt-5 max-w-lg text-base leading-7 text-amber-50/85 sm:text-lg">
+            Handcrafted from pure buffalo milk, slow-cooked in traditional iron pots with zero preservatives.
+          </p>
+          <div class="hero-enter-delay mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-amber-50 sm:text-sm">
+            <span class="inline-flex items-center gap-1.5"><span class="text-amber-300">✦</span> 100% pure milk</span>
+            <span class="inline-flex items-center gap-1.5"><span class="text-amber-300">✦</span> No adulteration</span>
+            <span class="inline-flex items-center gap-1.5"><span class="text-amber-300">✦</span> Hygienic sealed tubs</span>
+          </div>
+          <div class="hero-enter-delay mt-8 flex flex-wrap items-center gap-3">
+            <a href="#menu" class="btn-shimmer inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-antique px-7 text-sm font-bold text-bark transition hover:bg-amber-300">
+              Order now <span aria-hidden="true">↘</span>
+            </a>
+            <button type="button" data-whatsapp-chat class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/6 px-5 text-sm font-bold text-white transition hover:bg-white/14">
+              <span aria-hidden="true">◉</span> Chat on WhatsApp
+            </button>
+          </div>
+          <p class="mt-5 text-xs text-amber-100/70">Made fresh. Delivered with care across Kathmandu, Lalitpur &amp; Bhaktapur.</p>
+        </div>
+
+        <!-- Right: photo card -->
+        <div class="hero-enter-delay relative mt-7 min-h-[330px] overflow-hidden rounded-xl border border-white/20 bg-[#7d4e2c] shadow-[0_24px_64px_rgba(25,10,4,.35)] sm:min-h-[440px] lg:mt-0 lg:min-h-[540px]">
+          <div class="hero-photo absolute inset-0" role="img" aria-label="Traditional kurauni served in a bowl"></div>
+
+          <!-- Bottom overlay -->
+          <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/50 to-transparent px-4 pb-4 pt-10 text-white sm:px-5 sm:pb-5">
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[.16em] text-amber-200">The taste of home</p>
+              <p class="nepali mt-1 text-lg font-semibold sm:text-xl">बिस्तारै पाकेको, मनैदेखि बनाएको</p>
+            </div>
+            <span class="shrink-0 rounded-full border border-white/40 bg-black/20 px-3 py-1.5 text-[11px] font-medium backdrop-blur-sm">Fresh · Valley-wide</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ PROMISES BAR ══ -->
+    <section class="border-y border-amber-900/10 bg-[#f8edda]" aria-label="Our promises">
+      <div class="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-amber-900/15 px-3 py-5 text-center sm:px-6 sm:py-6 lg:px-8">
+        <div class="px-2 sm:px-4">
+          <p class="text-2xl" aria-hidden="true">🥛</p>
+          <p class="mt-1 text-sm font-bold text-bark sm:text-base">100%</p>
+          <p class="mt-0.5 text-[10px] text-stone-600 sm:text-xs">Pure buffalo milk</p>
+        </div>
+        <div class="px-2 sm:px-4">
+          <p class="text-2xl" aria-hidden="true">🔥</p>
+          <p class="mt-1 text-sm font-bold text-bark sm:text-base">12+ hrs</p>
+          <p class="mt-0.5 text-[10px] text-stone-600 sm:text-xs">Slow-cooked with care</p>
+        </div>
+        <div class="px-2 sm:px-4">
+          <p class="text-2xl" aria-hidden="true">🏍️</p>
+          <p class="mt-1 text-sm font-bold text-bark sm:text-base">Same day</p>
+          <p class="mt-0.5 text-[10px] text-stone-600 sm:text-xs">Valley-wide delivery</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STORY ══ -->
+    <section id="story" class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:px-8">
+      <!-- Local AI-generated kurauni photo replacing generic Unsplash -->
+      <div class="heritage-photo reveal order-2 min-h-[290px] rounded-xl shadow-[0_8px_32px_rgba(75,39,18,.12)] sm:min-h-[400px] lg:order-1" role="img" aria-label="Traditional kurauni in a clay bowl in a Nepali kitchen"></div>
+      <div class="reveal order-1 lg:order-2">
+        <p class="mb-3 text-xs font-bold uppercase tracking-[.14em] text-maroon">A little patience. A lot of love.</p>
+        <h2 class="display text-3xl leading-tight text-bark sm:text-4xl">An old family recipe, kept the old way.</h2>
+        <p class="mt-5 text-sm leading-7 text-stone-700 sm:text-base">Jange Dai learned kurauni the way it has always been made: with fresh buffalo milk, a heavy iron pot, and time. There are no shortcuts here. The milk is brought to a gentle boil and stirred continuously as it reduces into the rich, caramelized treat we grew up with.</p>
+        <p class="mt-4 text-sm leading-7 text-stone-700 sm:text-base">Every batch is made in small quantities, cooled carefully, and sealed fresh for your home. Just milk, craft, and a taste that belongs to Nepal.</p>
+        <a href="#menu" class="mt-7 inline-flex items-center gap-2 rounded-full border border-maroon/30 bg-maroon/5 px-5 py-2.5 text-sm font-bold text-maroon transition hover:bg-maroon hover:text-white">Find your tub <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ══ MENU ══ -->
+    <section id="menu" class="border-t border-amber-900/10 bg-[#f8edda] py-16 sm:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-[.14em] text-maroon">Fresh from the pot</p>
+            <h2 class="display text-3xl text-bark sm:text-4xl">Choose your kurauni</h2>
+            <p class="mt-2 text-sm text-stone-600">Packed fresh in hygienic, sealed tubs.</p>
+          </div>
+          <p class="hidden text-sm font-medium text-stone-600 sm:block">🏍️ Delivery inside Ring Road: Rs. 100</p>
+        </div>
+
+        <div class="mt-9 grid gap-5 md:mx-auto md:max-w-4xl md:grid-cols-2">
+
+          <!-- 500g — most popular -->
+          <article class="product-card reveal relative flex flex-col overflow-hidden rounded-xl border-2 border-antique/70 bg-paper shadow-[0_8px_32px_rgba(75,39,18,.08)]">
+            <div class="card-accent" style="background: linear-gradient(90deg,#991b1b,#d97706);"></div>
+            <div class="flex flex-1 flex-col p-5 sm:p-6">
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-[10px] font-bold uppercase tracking-[.14em] text-maroon">Share the good stuff</p>
+                  <span class="rounded-full bg-maroon px-2 py-1 text-[8px] font-bold uppercase tracking-[.08em] text-white">Most popular</span>
+                </div>
+                  <h3 class="mt-1.5 text-xl font-bold text-bark">500g tub</h3>
+                  <p class="mt-0.5 text-sm text-stone-500">Family pack</p>
+              </div>
+              <div class="mt-6">
+                <p class="text-3xl font-bold text-bark">Rs. 800</p>
+                <p class="mt-0.5 text-xs text-stone-500">Rs. 160 per 100g</p>
+              </div>
+              <div class="mt-auto flex items-center justify-between gap-3 pt-6">
+                <div class="flex items-center gap-3" aria-label="500 gram quantity selector">
+                  <button type="button" class="qty-button" data-qty-action="decrease" data-pack="500" aria-label="Remove one 500g tub">−</button>
+                  <output class="w-5 text-center text-sm font-bold" data-quantity="500" aria-live="polite">0</output>
+                  <button type="button" class="qty-button" data-qty-action="increase" data-pack="500" aria-label="Add one 500g tub">+</button>
+                </div>
+                <button type="button" data-qty-action="increase" data-pack="500" class="rounded-full bg-maroon px-4 py-2.5 text-xs font-bold text-white transition hover:bg-bark">Add to order</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 1kg -->
+          <article class="product-card reveal flex flex-col overflow-hidden rounded-xl border border-amber-900/15 bg-paper">
+            <div class="card-accent" style="background: linear-gradient(90deg,#8B4513,#D97706);"></div>
+            <div class="flex flex-1 flex-col p-5 sm:p-6">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-[.14em] text-maroon">Make it a celebration</p>
+                  <h3 class="mt-1.5 text-xl font-bold text-bark">1kg tub</h3>
+                  <p class="mt-0.5 text-sm text-stone-500">Festival &amp; gifting pack</p>
+                </div>
+                <span class="text-4xl" aria-hidden="true">🎁</span>
+              </div>
+              <div class="mt-6">
+                <p class="text-3xl font-bold text-bark">Rs. 1,500</p>
+                <p class="mt-0.5 text-xs text-stone-500">Rs. 150 per 100g</p>
+              </div>
+              <div class="mt-auto flex items-center justify-between gap-3 pt-6">
+                <div class="flex items-center gap-3" aria-label="1 kilogram quantity selector">
+                  <button type="button" class="qty-button" data-qty-action="decrease" data-pack="1000" aria-label="Remove one 1kg tub">−</button>
+                  <output class="w-5 text-center text-sm font-bold" data-quantity="1000" aria-live="polite">0</output>
+                  <button type="button" class="qty-button" data-qty-action="increase" data-pack="1000" aria-label="Add one 1kg tub">+</button>
+                </div>
+                <button type="button" data-qty-action="increase" data-pack="1000" class="rounded-full bg-bark px-4 py-2.5 text-xs font-bold text-white transition hover:bg-maroon">Add to order</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Cart summary row -->
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-amber-900/15 bg-paper/70 px-5 py-4">
+          <p class="text-sm text-stone-600">Inside Ring Road delivery Rs. 100 · We'll confirm for other areas.</p>
+          <div class="flex w-full items-center justify-between gap-4 sm:w-auto sm:justify-end">
+            <p class="text-sm text-stone-700">Subtotal <strong id="cart-subtotal" class="ml-2 text-base text-bark">Rs. 0</strong></p>
+            <button type="button" data-open-checkout class="rounded-full bg-maroon px-5 py-2.5 text-sm font-bold text-white transition hover:bg-bark disabled:cursor-not-allowed disabled:opacity-40" disabled>Continue to order</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PROCESS ══ -->
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center reveal">
+        <p class="mb-2 text-xs font-bold uppercase tracking-[.14em] text-maroon">From our kitchen to your table</p>
+        <h2 class="display text-3xl text-bark sm:text-4xl">Made the way you remember.</h2>
+      </div>
+      <div class="process-grid mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-10">
+        <div class="reveal text-center">
+          <div class="step-icon mx-auto" aria-hidden="true">🥛</div>
+          <p class="text-xs font-bold uppercase tracking-wider text-antique">01 · The milk</p>
+          <h3 class="mt-2 font-bold text-bark">Only pure buffalo milk</h3>
+          <p class="mt-2 text-sm leading-6 text-stone-600">Fresh milk is the whole recipe. Nothing added to thicken, stretch, or disguise it.</p>
+        </div>
+        <div class="reveal text-center">
+          <div class="step-icon mx-auto" aria-hidden="true">🔥</div>
+          <p class="text-xs font-bold uppercase tracking-wider text-antique">02 · The fire</p>
+          <h3 class="mt-2 font-bold text-bark">Slow heat, steady hands</h3>
+          <p class="mt-2 text-sm leading-6 text-stone-600">We stir as it simmers in an iron pot, letting the milk reduce and turn gently golden.</p>
+        </div>
+        <div class="reveal text-center">
+          <div class="step-icon mx-auto" aria-hidden="true">📦</div>
+          <p class="text-xs font-bold uppercase tracking-wider text-antique">03 · The finish</p>
+          <h3 class="mt-2 font-bold text-bark">Sealed while it's fresh</h3>
+          <p class="mt-2 text-sm leading-6 text-stone-600">Each small batch is cooled and packed hygienically for a delicious first spoonful at home.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ REVIEWS ══ -->
+    <section id="reviews" class="bg-[#f8edda] py-16 sm:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-[.14em] text-maroon">A little love from the Valley</p>
+            <h2 class="display text-3xl text-bark sm:text-4xl">Good things get shared.</h2>
+          </div>
+          <div class="flex items-center gap-1.5 text-sm">
+            <span class="tracking-widest text-antique" aria-label="5 stars">★★★★★</span>
+            <span class="text-stone-600">Loved at home</span>
+          </div>
+        </div>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <figure class="review-card reveal">
+            <div class="mb-3 text-sm tracking-widest text-antique" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="text-sm italic leading-6 text-stone-700">"The aroma took me straight back to my grandmother's kitchen. Perfectly rich, not too sweet."</blockquote>
+            <figcaption class="mt-4 flex items-center gap-2">
+              <div class="review-avatar" aria-hidden="true">AK</div>
+              <span class="text-xs font-bold text-bark">Anisha K. <span class="font-normal text-stone-500">· Patan</span></span>
+            </figcaption>
+          </figure>
+          <figure class="review-card reveal">
+            <div class="mb-3 text-sm tracking-widest text-antique" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="text-sm italic leading-6 text-stone-700">"Ordered after lunch and it arrived that evening. The family finished the 500g tub in no time."</blockquote>
+            <figcaption class="mt-4 flex items-center gap-2">
+              <div class="review-avatar" aria-hidden="true">SR</div>
+              <span class="text-xs font-bold text-bark">Suman R. <span class="font-normal text-stone-500">· Baneshwor</span></span>
+            </figcaption>
+          </figure>
+          <figure class="review-card reveal">
+            <div class="mb-3 text-sm tracking-widest text-antique" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="text-sm italic leading-6 text-stone-700">"You can taste that it's made slowly. Such a lovely treat with chiya, and the packaging was neat."</blockquote>
+            <figcaption class="mt-4 flex items-center gap-2">
+              <div class="review-avatar" aria-hidden="true">PM</div>
+              <span class="text-xs font-bold text-bark">Prakriti M. <span class="font-normal text-stone-500">· Bhaktapur</span></span>
+            </figcaption>
+          </figure>
+          <figure class="review-card reveal">
+            <div class="mb-3 text-sm tracking-widest text-antique" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="text-sm italic leading-6 text-stone-700">"The real deal. Smooth, caramelized kurauni and quick delivery to our place in Lalitpur."</blockquote>
+            <figcaption class="mt-4 flex items-center gap-2">
+              <div class="review-avatar" aria-hidden="true">NT</div>
+              <span class="text-xs font-bold text-bark">Nabin T. <span class="font-normal text-stone-500">· Lalitpur</span></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FAQ ══ -->
+    <section id="faq" class="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
+      <div class="text-center reveal">
+        <p class="mb-2 text-xs font-bold uppercase tracking-[.14em] text-maroon">Good to know</p>
+        <h2 class="display text-3xl text-bark sm:text-4xl">A few quick answers.</h2>
+      </div>
+      <div class="mt-8 space-y-1 reveal">
+        <details class="group rounded-lg border border-amber-900/12 bg-paper px-5 py-0 open:py-1" open>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-bark">
+            <span>How long does kurauni stay fresh?</span>
+            <span class="shrink-0 text-xl text-antique transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-4 pr-8 text-sm leading-6 text-stone-600">Keep it refrigerated in its sealed tub and enjoy within 10–15 days. Always use a clean, dry spoon.</p>
+        </details>
+        <details class="group rounded-lg border border-amber-900/12 bg-paper px-5 py-0 open:py-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-bark">
+            <span>How much is delivery?</span>
+            <span class="shrink-0 text-xl text-antique transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-4 pr-8 text-sm leading-6 text-stone-600">Delivery inside Ring Road is a flat Rs. 100. For other Kathmandu Valley locations, we'll confirm the delivery charge with you before dispatch.</p>
+        </details>
+        <details class="group rounded-lg border border-amber-900/12 bg-paper px-5 py-0 open:py-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-bark">
+            <span>How should I store and serve it?</span>
+            <span class="shrink-0 text-xl text-antique transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-4 pr-8 text-sm leading-6 text-stone-600">Refrigerate as soon as it arrives. Enjoy it chilled, or let it sit out for a few minutes for a softer, creamier bite.</p>
+        </details>
+        <details class="group rounded-lg border border-amber-900/12 bg-paper px-5 py-0 open:py-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-bark">
+            <span>Can I pay by Fonepay or Cash on Delivery?</span>
+            <span class="shrink-0 text-xl text-antique transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-4 pr-8 text-sm leading-6 text-stone-600">Yes. Choose Fonepay QR or Cash on Delivery in the order form. We'll send your payment details or confirm COD when we message you back.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ══ CTA BAND ══ -->
+    <section class="bg-[#702d18] py-14 text-center text-white sm:py-16">
+      <p class="nepali text-lg font-semibold text-amber-200 sm:text-xl">आजै अर्डर गर्नुहोस्!</p>
+      <h2 class="display mt-2 text-3xl text-white sm:text-4xl">Ready for a taste of home?</h2>
+      <p class="mx-auto mt-3 max-w-md text-sm text-amber-100/80">Fresh batches go fast. Order now and have it at your door the same day.</p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a href="#menu" class="btn-shimmer inline-flex min-h-12 items-center gap-2 rounded-full bg-antique px-8 text-sm font-bold text-bark transition hover:bg-amber-300">Order now ↘</a>
+        <button type="button" data-whatsapp-chat class="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/35 bg-white/8 px-6 text-sm font-bold text-white transition hover:bg-white/16">◉ WhatsApp</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="bg-bark text-amber-50">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.6fr_1fr_1fr] lg:px-8">
+      <div>
+        <div class="mb-4">
+          <p class="text-base font-bold leading-tight">Jange Daiko Kurauni</p>
+          <p class="nepali text-sm text-amber-100/70">जंगे दाईको कुरौनी</p>
+        </div>
+        <p class="max-w-xs text-sm leading-6 text-amber-50/70">A taste of home, slow-cooked in Kathmandu. Fresh batches delivered across the Valley.</p>
+      </div>
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-widest text-amber-300">Explore</h2>
+        <div class="mt-4 flex flex-col items-start gap-2.5 text-sm text-amber-50/75">
+          <a href="#story" class="transition-colors hover:text-white">Our story</a>
+          <a href="#menu" class="transition-colors hover:text-white">Order kurauni</a>
+          <a href="#reviews" class="transition-colors hover:text-white">Reviews</a>
+          <a href="#faq" class="transition-colors hover:text-white">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-widest text-amber-300">Say hello</h2>
+        <div class="mt-4 flex flex-col items-start gap-2.5 text-sm text-amber-50/75">
+          <button type="button" data-whatsapp-chat class="transition-colors hover:text-white">WhatsApp</button>
+          <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" class="transition-colors hover:text-white">Facebook ↗</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="transition-colors hover:text-white">Instagram ↗</a>
+        </div>
+        <p class="mt-4 text-xs text-amber-50/50">Kathmandu · Lalitpur · Bhaktapur</p>
+      </div>
+    </div>
+    <div class="border-t border-white/10 px-4 py-4 text-center text-xs text-amber-50/50">
+      © 2026 Jange Daiko Kurauni · Made fresh, with care.
+    </div>
+  </footer>
+
+  <!-- WhatsApp float button -->
+  <button type="button" data-whatsapp-chat class="wa-float inline-flex min-h-12 items-center gap-2 rounded-full border border-white/25 bg-[#237348] px-4 text-sm font-bold text-white shadow-lg transition hover:bg-[#185d38]" aria-label="Chat with us on WhatsApp">
+    <span aria-hidden="true" class="text-lg">◉</span>
+    <span class="hidden sm:inline">Chat with Jange Dai</span>
+    <span class="sm:hidden">WhatsApp</span>
+  </button>
+
+  <!-- Mobile cart bar -->
+  <div id="mobile-cart" class="fixed inset-x-0 bottom-0 z-20 items-center justify-between gap-3 border-t border-amber-900/15 bg-paper px-4 py-3 shadow-[0_-6px_20px_rgba(75,39,18,.10)] sm:hidden" aria-live="polite">
+    <div>
+      <p id="mobile-cart-count" class="text-xs text-stone-600">0 tubs</p>
+      <p id="mobile-cart-total" class="text-sm font-bold text-bark">Rs. 0</p>
+    </div>
+    <button type="button" data-open-checkout class="rounded-full bg-maroon px-5 py-2.5 text-sm font-bold text-white">Review order →</button>
+  </div>
+
+  <!-- Checkout dialog -->
+  <dialog id="checkout-dialog" class="m-auto w-[min(100%-24px,560px)] rounded-xl border border-amber-900/15 bg-paper p-0 shadow-2xl">
+    <div class="flex items-start justify-between gap-5 border-b border-amber-900/15 px-5 py-4 sm:px-7">
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-[.15em] text-maroon">Almost home</p>
+        <h2 id="checkout-title" class="mt-1 text-xl font-bold text-bark">Your kurauni order</h2>
+      </div>
+      <button type="button" id="close-checkout" class="grid size-9 shrink-0 place-items-center rounded-full border border-amber-900/15 text-lg text-bark transition-colors hover:bg-butter" aria-label="Close order form">×</button>
+    </div>
+    <form id="order-form" class="max-h-[calc(100dvh-110px)] overflow-y-auto px-5 py-5 sm:px-7">
+      <div class="mb-5 rounded-lg border border-amber-900/12 bg-[#fdf6e8] p-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-stone-600">Selected pack size</h3>
+        <ul id="checkout-items" class="mt-2 space-y-1 text-sm text-bark"></ul>
+        <div class="mt-3 flex items-center justify-between border-t border-amber-900/10 pt-3 text-sm">
+          <span class="text-stone-600">Subtotal</span>
+          <strong id="checkout-subtotal">Rs. 0</strong>
+        </div>
+        <div class="mt-1 flex items-center justify-between text-sm">
+          <span class="text-stone-600">Delivery</span>
+          <span id="checkout-delivery" class="text-stone-700">Rs. 100 inside Ring Road*</span>
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="text-xs font-semibold text-bark">Full name<input class="field mt-1.5" name="name" autocomplete="name" placeholder="Your name" required></label>
+        <label class="text-xs font-semibold text-bark">Contact number<input class="field mt-1.5" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="98XXXXXXXX" pattern="[0-9+ ]{7,18}" required></label>
+        <label class="text-xs font-semibold text-bark">Delivery area
+          <select class="field mt-1.5" name="area" required>
+            <option value="" disabled selected>Select your area</option>
+            <option>Kathmandu</option><option>Lalitpur</option><option>Bhaktapur</option>
+          </select>
+        </label>
+        <label class="text-xs font-semibold text-bark">Landmark / tole<input class="field mt-1.5" name="landmark" autocomplete="street-address" placeholder="e.g. near Patan Dhoka" required></label>
+      </div>
+      <fieldset class="mt-5">
+        <legend class="text-xs font-semibold text-bark">Payment preference</legend>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-amber-900/20 bg-white/60 px-3 text-xs font-medium text-bark transition-colors has-[:checked]:border-maroon has-[:checked]:bg-butter">
+            <input type="radio" name="payment" value="Fonepay QR" required> Fonepay QR
+          </label>
+          <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-amber-900/20 bg-white/60 px-3 text-xs font-medium text-bark transition-colors has-[:checked]:border-maroon has-[:checked]:bg-butter">
+            <input type="radio" name="payment" value="Cash on Delivery" required> Cash on Delivery
+          </label>
+        </div>
+      </fieldset>
+      <p class="mt-3 text-[11px] leading-5 text-stone-500">* Rs. 100 inside Ring Road. We'll confirm delivery charges for other locations on WhatsApp.</p>
+      <p id="form-message" class="mt-3 min-h-5 text-xs font-semibold text-maroon" role="status" aria-live="polite"></p>
+      <button type="submit" class="mt-2 min-h-12 w-full rounded-full bg-maroon px-5 text-sm font-bold text-white transition hover:bg-bark">
+        Confirm order via WhatsApp ↗
+      </button>
+      <p class="mt-3 text-center text-[11px] text-stone-500">Your order opens in WhatsApp for confirmation. No payment is taken here.</p>
+    </form>
+  </dialog>
+
+  <script>
+    /* ── Constants ── */
+    const BUSINESS_WHATSAPP = '9779803301184';
+    const packs = {
+      500:  { label: '500g Family Pack',             price: 800  },
+      1000: { label: '1kg Festival & Gifting Pack',  price: 1500 }
+    };
+    const quantities = { 500: 0, 1000: 0 };
+    const fmt = (n) => `Rs. ${n.toLocaleString('en-IN')}`;
+    const itemCount = () => Object.values(quantities).reduce((s, q) => s + q, 0);
+    const subtotal  = () => Object.entries(quantities).reduce((s, [sz, q]) => s + packs[sz].price * q, 0);
+
+    /* ── DOM refs ── */
+    const cartCountEl   = document.querySelector('#cart-count');
+    const cartSubtotEl  = document.querySelector('#cart-subtotal');
+    const mobileCart    = document.querySelector('#mobile-cart');
+    const mobileCountEl = document.querySelector('#mobile-cart-count');
+    const mobileTotEl   = document.querySelector('#mobile-cart-total');
+    const dialog        = document.querySelector('#checkout-dialog');
+    const formMsg       = document.querySelector('#form-message');
+    const waFloat       = document.querySelector('.wa-float');
+
+    /* ── Cart render ── */
+    function renderCart() {
+      const count = itemCount(), total = subtotal();
+      cartCountEl.textContent = count;
+      cartSubtotEl.textContent = fmt(total);
+      document.querySelectorAll('[data-quantity]').forEach(el => {
+        el.textContent = quantities[el.dataset.quantity];
+      });
+      document.querySelectorAll('[data-open-checkout]').forEach(btn => {
+        if (btn.textContent.includes('Continue to order')) btn.disabled = count === 0;
+      });
+      mobileCart.classList.toggle('visible', count > 0);
+      mobileCountEl.textContent = `${count} ${count === 1 ? 'tub' : 'tubs'}`;
+      mobileTotEl.textContent = fmt(total);
+      waFloat.classList.toggle('cart-raised', count > 0);
+    }
+
+    /* ── Checkout render ── */
+    function renderCheckout() {
+      const list = document.querySelector('#checkout-items');
+      list.replaceChildren();
+      Object.entries(quantities).forEach(([sz, q]) => {
+        if (!q) return;
+        const li = document.createElement('li');
+        li.className = 'flex justify-between gap-3 py-0.5';
+        li.innerHTML = `<span>${packs[sz].label} × ${q}</span><strong>${fmt(packs[sz].price * q)}</strong>`;
+        list.append(li);
+      });
+      document.querySelector('#checkout-subtotal').textContent = fmt(subtotal());
+      formMsg.textContent = '';
+    }
+
+    /* ── Click delegation ── */
+    document.addEventListener('click', e => {
+      const qBtn = e.target.closest('[data-qty-action]');
+      if (qBtn) {
+        const sz = qBtn.dataset.pack;
+        quantities[sz] = Math.max(0, quantities[sz] + (qBtn.dataset.qtyAction === 'increase' ? 1 : -1));
+        renderCart(); return;
+      }
+      if (e.target.closest('[data-open-checkout]')) {
+        if (itemCount() === 0) { document.querySelector('#menu').scrollIntoView({ behavior: 'smooth' }); return; }
+        renderCheckout(); dialog.showModal(); return;
+      }
+      if (e.target.closest('[data-whatsapp-chat]')) {
+        if (!/^977\d{9,10}$/.test(BUSINESS_WHATSAPP)) {
+          formMsg.textContent = 'WhatsApp is ready, but the phone number still needs to be configured.';
+          if (!dialog.open) dialog.showModal(); return;
+        }
+        window.open(`https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent('Namaste! I would like to know more about Jange Daiko Kurauni.')}`, '_blank', 'noopener,noreferrer');
+      }
+    });
+
+    document.querySelector('#close-checkout').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+
+    document.querySelector('#order-form').addEventListener('submit', e => {
+      e.preventDefault();
+      if (!/^977\d{9,10}$/.test(BUSINESS_WHATSAPP)) {
+        formMsg.textContent = 'Configure the business phone number in the script first.'; return;
+      }
+      const fd = new FormData(e.currentTarget);
+      const lines = Object.entries(quantities)
+        .filter(([,q]) => q > 0)
+        .map(([sz,q]) => `${packs[sz].label} x ${q} = ${fmt(packs[sz].price * q)}`);
+      const msg = [
+        'Namaste! I would like to place an order:', ...lines,
+        `Subtotal: ${fmt(subtotal())}`,
+        'Delivery: Rs. 100 inside Ring Road (please confirm for my area)',
+        `Name: ${fd.get('name')}`, `Contact: ${fd.get('phone')}`,
+        `Area: ${fd.get('area')}`, `Landmark: ${fd.get('landmark')}`,
+        `Payment: ${fd.get('payment')}`
+      ].join('\n');
+      window.open(`https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+    });
+
+    renderCart();
+
+    /* ── Scroll-reveal ── */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); ro.unobserve(en.target); } });
+    }, { threshold: 0.10 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* ── Scroll-spy for active nav ── */
+    const sections = ['story','menu','reviews','faq'].map(id => document.getElementById(id));
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        const link = document.querySelector(`#main-nav a[href="#${en.target.id}"]`);
+        if (link) link.classList.toggle('active', en.isIntersecting);
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => s && spy.observe(s));
+  </script>
+
+</body>
+</html>
